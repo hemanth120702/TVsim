@@ -78,7 +78,7 @@ The TV Simulator is a web-based application designed to mimic the functionality 
 ## Contact
 
 For any issues or inquiries, please contact the project maintainer at [hemanth120702@gmail.com].
-#note
+#note-
 for now i gave only some sample videos to play,for further more contact me
 
 Enjoy the TV Simulator experience!
