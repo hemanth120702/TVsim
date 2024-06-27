@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My 2000's TV!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=yes">
+    <meta name="color-scheme" content="light only">
+    <link rel="icon" href="favicon.ico">
+    <link rel="image_src" type="image/jpeg" href="https://www.my00stv.com/share.jpg">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="manifest" href="https://www.my00stv.com/manifest.json">
+    <meta name="description" content="Go back to the 2000's via this nostalgic TV simulator and relive the original ads, music videos, movie trailers, shows and more!">
+    <meta name="author" content="Joey Cato">
+    <meta name="keywords" content="2000,2000's,nostalgia,TV,music,commercials,retro,flashback">
+    <meta property="og:title" content="My 2000's TV!">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="images/share.jpg">
+    <meta property="og:url" content="https://www.my00stv.com">
+    <meta property="og:description" content="Go back to the 2000's via this nostalgic TV simulator and relive the original ads, music videos, movie trailers, shows and more!">
+    <style>
+        body { background-color: #000; }
+        #loader { font-family: blippo, monospace; position: absolute; font-size: 40px; z-index: 12; left: 15%; top: 25%; width: 100%; height: 30px; line-height: 30px; color: #0f0; }
+    </style>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-G6EZHHQFLN"></script>
+    <script>
+        document.addEventListener("touchmove", (function(t) { 1 !== t.scale && t.preventDefault() }), !1);
+        var lastTouchEnd = 0;
+        function gtag() { dataLayer.push(arguments) }
+        document.addEventListener("touchend", (function(t) {
+            var e = (new Date).getTime();
+            e - lastTouchEnd <= 300 && t.preventDefault(), lastTouchEnd = e
+        }), !1);
+        window.dataLayer = window.dataLayer || [];
+        gtag("js", new Date);
+        gtag("config", "G-G6EZHHQFLN");
+    </script>
+    <link href="css/main.c127e915.chunk.css" rel="stylesheet">
+    <link as="font" crossorigin="anonymous" href="https://www.my00stv.com/static/media/blippo.9605964e.woff2" rel="preload">
+    <link as="font" crossorigin="anonymous" href="https://www.my00stv.com/static/media/cpufixed.93b4de94.woff" rel="preload">
+    <link as="font" crossorigin="anonymous" href="https://www.my00stv.com/static/media/lcd.530954c6.woff" rel="preload">
+</head>
+<body scroll="no">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="loader">✨Teleporting✨ 4%</div>
+    <script>
+        var NUM_STEPS = 5,
+            STEP = Math.floor(100 / NUM_STEPS),
+            loaderTid = 0,
+            loaderCurr = 0,
+            loaderNext = STEP;
+
+        function setLoader() {
+            document.getElementById("loader").innerHTML = "✨Teleporting✨ " + loaderCurr + "%";
+        }
+
+        function incProg() {
+            ++loaderCurr < loaderNext && (setLoader(), loaderTid = setTimeout(incProg, 200));
+        }
+
+        incProg();
+    </script>
+
+    <!-- Rest of your HTML content -->
+
+    <script src="js/2.3e6c74d5.chunk.js"></script>
+    <script src="js/main.621fde94.chunk.js"></script>
+</body>
+</html>

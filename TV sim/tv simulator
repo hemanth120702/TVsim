@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 800px;
+            margin-bottom: 10px;
+        }
+
+        #logo {
+            width: 50px; /* Adjust the logo size */
+            height: 50px;
+            background: url('nosto_tv_logo.png') center/cover no-repeat; /* Replace with your logo */
+            margin-right: 10px;
+        }
+
+        #title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #navigation {
+            display: flex;
+            gap: 20px;
+        }
+
+        #tv {
+            border: 20px solid orange; /* Orange border */
+            background-color: #000;
+            width: 800px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #screen {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border: 2px solid orange; /* Orange border for the screen */
+            position: relative;
+        }
+
+        #channel-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+        }
+
+        #remote {
+            display: flex;
+            flex-direction: column;
+            align-items: right;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            color: orange;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 2px 0;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <title>NOSTO TV Simulator</title>
+</head>
+<body>
+    <div id="header">
+        <div id="logo"></div>
+        <div id="title">NOSTO TV</div>
+        <div id="navigation">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Newsletter</a>
+        </div>
+    </div>
+
+    <div id="tv-container">
+        <div id="tv">
+            <div id="screen">
+                <div id="channel-info"></div>
+            </div>
+        </div>
+        <div id="remote">
+            <button onclick="powerToggle()">Power On/Off</button>
+            <button onclick="changeChannel(1)">Channel +</button>
+            <button onclick="changeChannel(-1)">Channel -</button>
+        </div>
+    </div>
+
+    <script>
+        const screen = document.getElementById('screen');
+        const channelInfo = document.getElementById('channel-info');
+        let isPowerOn = false;
+        let currentChannel = 1;
+
+        function changeChannel(change) {
+            if (isPowerOn) {
+                currentChannel += change;
+                if (currentChannel < 1) {
+                    currentChannel = 50;
+                } else if (currentChannel > 50) {
+                    currentChannel = 1;
+                }
+                updateChannelInfo();
+            }
+        }
+
+        function powerToggle() {
+            isPowerOn = !isPowerOn;
+
+            if (isPowerOn) {
+                screen.style.background = `#000 url('https://via.placeholder.com/800x500') center/cover no-repeat`;
+                updateChannelInfo();
+            } else {
+                screen.style.background = 'none';
+                channelInfo.innerText = '';
+            }
+        }
+
+        function updateChannelInfo() {
+            if (isPowerOn) {
+                channelInfo.innerText = `Channel ${currentChannel}`;
+            }
+        }
+    </script>
+</body>
+</html>

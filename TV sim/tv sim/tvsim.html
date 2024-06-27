@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: url('background_image.jpg') center/cover no-repeat;
+            height: 100vh;
+            margin: 10;
+            font-family: Copperplate, "Courier New", monospace;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 1550px;
+            margin-bottom: 10px;
+            background-color: yellow;
+            padding: 5px;
+        }
+
+        #logo {
+            width: 150px;
+            height: 150px;
+            background: url('nosto_tv_logo.png') center/cover no-repeat;
+            margin-left: 50px;
+        }
+
+        #title {
+            font-size: 48px;
+            font-weight: bolder;
+            color: black;
+        }
+
+        #navigation {
+            display: flex;
+            gap: 20px;
+        }
+
+        #tv-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #tv {
+            border: 20px solid black;
+            background-color: black;
+            width: 800px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #screen-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        #tv-template {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: url('tv_template.png') center/cover no-repeat;
+            z-index: 1;
+            visibility: visible;
+        }
+
+        #tv-frame {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 10px solid #333;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        #channel-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: rgb(0, 0, 0);
+            font-size: 20px;
+        }
+
+        #remote {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: static;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background-color: yellow;
+            padding: 15px;
+            border-radius: 10px;
+            color: yellow;
+        }
+
+        button {
+            margin: 5px 0;
+            padding: 5px;
+            font-size: 12px;
+            cursor: pointer;
+            color: black;
+            width: 80px;
+        }
+    </style>
+    <title>TV Simulator</title>
+</head>
+<body>
+    <div id="header">
+        <div id="logo"></div>
+        <div id="title">NOSTO TV</div>
+        <div id="navigation">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">HISTORY</a>
+            <A HREF="#">YEAR</A>
+            <A HREF="#">BEST content</A>
+        </div>
+    </div>
+
+    <div id="tv-container">
+        <div id="tv">
+            <div id="screen-container">
+                <div id="tv-template"></div>
+                <div id="tv-frame"></div>
+
+                <video id="videoPlayer" controls width="100%" height="100%" autoplay>
+                    <source src="channel1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div id="channel-info"></div>
+            </div>
+        </div>
+        <div id="remote">
+            remote
+            <button onclick="powerToggle()">Power</button>
+            <button onclick="changeChannel(1)">Ch +</button>
+            <button onclick="changeChannel(-1)">Ch -</button>
+        </div>
+    </div>
+
+    <script>
+        const screenContainer = document.getElementById('screen-container');
+        const channelInfo = document.getElementById('channel-info');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const tvTemplate = document.getElementById('tv-template');
+        let isPowerOn = false;
+        let currentChannel = 1;
+
+        function changeChannel(change) {
+            if (isPowerOn) {
+                currentChannel += change;
+                if (currentChannel < 1) {
+                    currentChannel = 50;
+                } else if (currentChannel > 50) {
+                    currentChannel = 1;
+                }
+                updateChannelInfo();
+                updateVideoSource();
+            }
+        }
+
+        function powerToggle() {
+            isPowerOn = !isPowerOn;
+
+            if (isPowerOn) {
+                updateChannelInfo();
+                updateVideoSource();
+                tvTemplate.style.visibility = 'hidden';
+            } else {
+                screenContainer.innerHTML = '';
+                channelInfo.innerText = '';
+                tvTemplate.style.visibility = 'visible';
+            }
+        }
+
+        function updateChannelInfo() {
+            if (isPowerOn) {
+                channelInfo.innerText = `Channel ${currentChannel}`;
+            }
+        }
+
+        function updateVideoSource() {
+            if (isPowerOn) {
+                videoPlayer.src = `channel${currentChannel}.mp4`;
+                videoPlayer.load();
+                videoPlayer.play();
+            }
+        }
+    </script>
+</body>
+</html>

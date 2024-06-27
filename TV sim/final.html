@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: url('background_image.jpg') center/cover no-repeat;
+            height: 95vh;
+            margin: 0%;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 1505px;
+            margin-bottom: 10;
+            margin-top: inherit;
+            background-image: linear-gradient(to right, #A1D6E2, #1995AD, #A1D6E2, #1995AD, #A1D6E2);
+            padding: 15px;
+        }
+
+        #logo {
+            width: 100px;
+            height: 100px;
+            background: url('nosto_tv_logo.png') center/cover no-repeat;
+            margin-left: 50px;
+        }
+
+        #title {
+            font-size: 48px;
+            font-weight: bolder;
+            color: black;
+        }
+
+        #navigation {
+            display: flex;
+            gap: 20px;
+        }
+
+        #tv-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #tv {
+            border: 20px solid black;
+            background-color: black;
+            width: 800px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #screen-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Ensure the screen is behind the TV template and frame */
+        }
+
+        #screen {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #tv-template {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: url('tv_template.png') center/cover no-repeat;
+            z-index: 2; /* Bring TV template to the front */
+            visibility: visible;
+            display: flex;
+            flex-direction: column-reverse; /* Display remote at the bottom */
+            align-items: flex-end; /* Align remote to the right */
+            justify-content: flex-end; /* Align remote to the bottom */
+        }
+
+        #tv-frame {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 10px solid #333;
+            border-radius: 10px;
+            z-index: -1; /* Behind TV template */
+            overflow: hidden;
+        }
+
+        #channel-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: rgb(0, 0, 0);
+            font-size: 20px;
+        }
+
+        #remote {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 1px;
+            position: absolute;
+            bottom: 9.3%;
+            right: 2%;
+            background-image: linear-gradient(to right, #4b443d, #4d423d);
+            padding: 10px;
+            border-radius: 5%;
+            color: black;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            z-index: 1; /* Behind TV template */
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 5px;
+            border-radius: 10%;
+            font-size: medium;
+            cursor: pointer;
+            color: black;
+            background-color: #d0cbc0;
+            width: auto; /* Adjusted to auto */
+            height: 27px;
+        }
+        .button1 {width: 100%;}
+
+        #inBetweenVideo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            outline: none;
+            visibility: hidden; /* Initially hide in-between video */
+            z-index: -2; /* Behind the TV template and remote container */
+        }
+
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            outline: none; /* Remove focus outline for better aesthetics */
+        }
+        
+        #newsletter-container {
+            background-image: linear-gradient(to right,  #A1D6E2, #1995AD, #A1D6E2, #1995AD, #A1D6E2);
+            padding: 2%;
+            text-align: left;
+            color: rgb(0, 0, 0);
+            margin-top: -35%;
+            margin-left: 75%;
+            width: 200px; /* Adjust the width as needed */
+        }
+
+        #newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-top: 15px;
+        }
+
+        #newsletter-form label,
+        #newsletter-form input {
+            margin-bottom: 2px;
+        }
+    </style>
+    <title>TV Simulator</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo"></div>
+        <div id="title">NOSTO TV</div>
+        <div id="navigation">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">HISTORY</a>
+            <A HREF="#">YEAR</A>
+        </div>
+    </div>
+
+    <div id="tv-container">
+        <div id="tv">
+            <div id="screen-container">
+                <div id="tv-template">
+                    <div id="remote">
+                        <button onclick="powerToggle()">Power</button>
+                        <button onclick="changeChannel(1)">Ch +</button>
+                        <button onclick="changeChannel(-1)">Ch -</button>
+                        <button onclick="volumeUp()">Vol +</button>
+                        <button onclick="volumeDown()">Vol -</button>
+                        <button onclick="toggleFullScreen()">FullSc</button>
+                        <button onclick="togglePiP()">PiP</button>
+                        <button onclick="mute()">Mute</button>
+                    </div>
+                </div>
+                <!-- Move inBetweenVideo inside tv-template -->
+                <video id="inBetweenVideo" autoplay loop style="visibility: hidden; position: absolute; z-index: -2;">
+                    <source src="in_between_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div id="tv-frame"></div>
+                <video id="videoPlayer" autoplay controls>
+                    Your browser does not support the video tag.
+                </video>
+                <div id="channel-info"></div>
+            </div>
+        </div>
+    </div>
+    <div id="newsletter-container">
+        <h2>Subscribe to our Newsletter</h2>
+        <p>Stay updated with the latest retro shows and events.</p>
+        <form id="newsletter-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="button" onclick="subscribeNewsletter()">endorse</button>
+        </form>
+    </div>
+
+    <audio id="buttonSound" src="button_sound.mp3"></audio>
+
+    <script>
+        const buttonSound = document.getElementById('buttonSound');
+        const channelInfo = document.getElementById('channel-info');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const tvTemplate = document.getElementById('tv-template');
+        const inBetweenVideo = document.getElementById('inBetweenVideo');
+        let isPowerOn = false;
+        let currentChannel = 1;
+
+        function changeChannel(change) {
+            if (isPowerOn) {
+                currentChannel += change;
+                if (currentChannel < 1) {
+                    currentChannel = 50;
+                } else if (currentChannel > 50) {
+                    currentChannel = 1;
+                }
+                updateChannelInfo();
+                updateVideoSource();
+            }
+        }
+
+        function powerToggle() {
+            isPowerOn = !isPowerOn;
+
+            if (isPowerOn) {
+                updateChannelInfo();
+                updateVideoSource();
+                tvTemplate.style.visibility = 'visible';
+                videoPlayer.play();
+                videoPlayer.style.visibility = 'visible';
+                inBetweenVideo.style.visibility = 'hidden'; // Hide in-between video
+            } else {
+                videoPlayer.pause();
+                videoPlayer.style.visibility = 'hidden';
+                channelInfo.innerText = '';
+                tvTemplate.style.visibility = 'visible';
+                inBetweenVideo.style.visibility = 'hidden'; // Hide in-between video
+            }
+
+            buttonSound.play(); // Play sound on power toggle
+        }
+
+        function updateChannelInfo() {
+            if (isPowerOn) {
+                channelInfo.innerText = `Channel ${currentChannel}`;
+            }
+        }
+
+        function updateVideoSource() {
+            if (isPowerOn) {
+                videoPlayer.src = `channel${currentChannel}.mp4`;
+                videoPlayer.load();
+                videoPlayer.play();
+                inBetweenVideo.style.visibility = 'visible'; // Show in-between video
+                inBetweenVideo.play(); // Play in-between video
+            }
+        }
+
+        function volumeUp() {
+            if (isPowerOn) {
+                videoPlayer.volume += 0.1;
+                buttonSound.play(); // Play sound on volume change
+            }
+        }
+
+        function volumeDown() {
+            if (isPowerOn) {
+                videoPlayer.volume -= 0.1;
+                buttonSound.play(); // Play sound on volume change
+            }
+        }
+
+        function toggleFullScreen() {
+            if (isPowerOn) {
+                if (videoPlayer.requestFullscreen) {
+                    videoPlayer.requestFullscreen();
+                } else if (videoPlayer.mozRequestFullScreen) {
+                    videoPlayer.mozRequestFullScreen();
+                } else if (videoPlayer.webkitRequestFullscreen) {
+                    videoPlayer.webkitRequestFullscreen();
+                }
+
+                buttonSound.play(); // Play sound on fullscreen toggle
+            }
+        }
+
+        function togglePiP() {
+            if (isPowerOn) {
+                if (document.pictureInPictureElement) {
+                    document.exitPictureInPicture();
+                } else if (videoPlayer && videoPlayer.readyState >= 2) {
+                    videoPlayer.requestPictureInPicture();
+                }
+
+                buttonSound.play(); // Play sound on PiP toggle
+            }
+        }
+
+        function mute() {
+            if (isPowerOn) {
+                videoPlayer.muted = !videoPlayer.muted;
+                buttonSound.play(); // Play sound on mute toggle
+            }
+        }
+
+        function subscribeNewsletter() {
+            const emailInput = document.getElementById('email').value;
+            alert(`you're subscribed: ${emailInput}`);
+        }
+    </script>
+</body>
+
+</html>
