@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-The TV Simulator is a web-based application designed to mimic the functionality of a television interface. It allows users to interact with a virtual TV, change channels, adjust volume, and subscribe to a newsletter. The application includes a user-friendly interface with responsive elements and realistic controls.
+The TV Simulator is a web-based application designed to mimic the functionality of a television interface which gives some nostologic experience to users.  It allows users to interact with a virtual TV, change channels, adjust volume, and other some functionality.  The application includes a user-friendly interface with responsive elements and realistic controls.
 
 ## File Structure
 
@@ -15,6 +15,7 @@ The TV Simulator is a web-based application designed to mimic the functionality 
 - `button_sound.mp3`: The audio file for button click sounds.
 - `styles.css`: The CSS file for styling the webpage.
 - `script.js`: The JavaScript file containing the functionality for the TV simulator.
+- im using 3+ layers for the templates.
 
 ## Features
 
