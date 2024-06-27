@@ -1,9 +1,5 @@
 # TV Simulator Project - README
 
-## Project Overview
-
-The TV Simulator is a web-based application designed to mimic the functionality of a television interface. It allows users to interact with a virtual TV, change channels, adjust volume, and subscribe to a newsletter. The application includes a user-friendly interface with responsive elements and realistic controls.
-
 ## File Structure
 
 - `index.html`: The main HTML file containing the structure of the TV simulator.
@@ -77,7 +73,7 @@ The TV Simulator is a web-based application designed to mimic the functionality 
 
 ## Contact
 
-For any issues or inquiries, please contact the project maintainer at [your-email@example.com].
+For any issues or inquiries, please contact the project maintainer at [hemanth120702@gmail.com].
 
 Enjoy the TV Simulator experience!
 
